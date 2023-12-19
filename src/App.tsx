@@ -3,18 +3,16 @@ import { useFetch } from "./hooks/useFetch";
 import { useHero } from "./hooks/useHero";
 import { v4 as uuid } from "uuid";
 import "./App.css";
+import Header from "./components/header";
 
 function App() {
   const [trips, setTrips] = useState(0);
-  const [nav, setNav] = useState<string[]>([]);
+
   const [boughtIt, setBoughtIt] = useState(false);
   const { data, isLoading, error } = useFetch();
   const { heroics, waitAMo, fail } = useHero();
 
   useEffect(() => {
-    setNav(() => {
-      return ["trending", "your orders", "community"];
-    });
     if (heroics) if (data) setTrips(data.length);
   }, [data, heroics]);
 
@@ -45,27 +43,7 @@ function App() {
 
   return (
     <>
-      <header className="site-header">
-        <div className="site-identity">
-          <a>
-            <img
-              className="eefe-logo"
-              src="/icons8-space-64.png"
-              alt="eefe spaceship logo"
-            />
-          </a>
-          <h1>Extraterrestrial Excursions for Earthlings</h1>
-        </div>
-        <ul className="go-somewhere">
-          {nav.map((place) => {
-            return (
-              <li key={place}>
-                <a>{place}</a>
-              </li>
-            );
-          })}
-        </ul>
-      </header>
+      <Header />
 
       {waitAMo && <p>...getting heroics...</p>}
       {heroics && (
@@ -79,8 +57,9 @@ function App() {
         >
           <h3>We've been helping humanity traverse the universe for aeons.</h3>
           <p>
-            Now it's your turn to marvel at the wonders of the universe! But don't just take our word for it; check out
-            these smashing reviews from customers just like you!
+            Now it's your turn to marvel at the wonders of the universe! But
+            don't just take our word for it; check out these smashing reviews
+            from customers just like you!
           </p>
           <ul className="testimonials">
             {heroics.testimonials.map(({ name, rating, spiel, social }) => {

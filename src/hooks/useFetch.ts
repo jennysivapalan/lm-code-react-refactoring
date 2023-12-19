@@ -1,21 +1,3 @@
-import { useEffect, useState } from "react";
-
-export const useFetch = () => {
-  const [data, setData] = useState<TripDatum[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error] = useState(null);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setData(tripData);
-      setIsLoading(false);
-    }, 800);
-  }, []);
-
-  return { data, isLoading, error };
-};
-
 interface TripDatum {
   id: string;
   tripName: string;
@@ -140,3 +122,5 @@ const tripData: TripData = [
     isBookable: false,
   },
 ];
+
+export default tripData;
